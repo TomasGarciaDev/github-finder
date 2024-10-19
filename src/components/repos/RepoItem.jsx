@@ -1,11 +1,4 @@
-import {
-  FaEye,
-  FaInfo,
-  FaLink,
-  FaStar,
-  FaStart,
-  FaUtensils,
-} from "react-icons/fa";
+import { FaEye, FaInfo, FaLink, FaStar, FaUtensils } from "react-icons/fa";
 import PropTypes from "prop-types";
 
 function RepoItem({ repo }) {
@@ -40,7 +33,7 @@ function RepoItem({ repo }) {
             <FaInfo className="mr-2" /> {open_issues}
           </div>
           <div className="mr-2 badge badge-warning badge-lg">
-            <FaUtensils className="mr-2" /> {watchers_count}
+            <FaUtensils className="mr-2" /> {forks}
           </div>
         </div>
       </div>
