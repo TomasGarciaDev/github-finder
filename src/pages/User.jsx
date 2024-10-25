@@ -4,18 +4,24 @@ import { useParams, Link } from "react-router-dom";
 import Spinner from "../components/layout/Spinner";
 import ReposList from "../components/repos/ReposList";
 import GithubContext from "../context/github/GithubContext";
+import { getUser, getUserRepos } from "../context/github/GithubActions";
 
 function User() {
-  const { getUser, user, repos, isLoading, getUserRepos } =
-    useContext(GithubContext);
+  const { user, repos, isLoading, dispatch } = useContext(GithubContext);
 
   const params = useParams();
 
   useEffect(() => {
-    getUser(params.login);
-    getUserRepos(params.login);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch({ type: "SET_LOADING" });
+    const getUserData = async () => {
+      const userData = await getUser(params.login);
+      dispatch({ type: "GET_USER", payload: userData });
+
+      const userRepoData = await getUserRepos(params.login);
+      dispatch({ type: "GET_REPOS", payload: userRepoData });
+    };
+    getUserData();
+  }, [dispatch, params.login]);
 
   const {
     name,
@@ -73,7 +79,7 @@ function User() {
                 <a
                   href={html_url}
                   target="_blank"
-                  rel="noreferral"
+                  rel="noreferrer"
                   className="btn btn-outline"
                 >
                   Visti Github Profile
@@ -94,7 +100,7 @@ function User() {
                     <a
                       href={`https://${blog}`}
                       target="_blank"
-                      rel="noreferreral"
+                      rel="noreferrer"
                     >
                       {blog}
                     </a>
@@ -108,7 +114,7 @@ function User() {
                     <a
                       href={`https://twitter.com/${twitter_username}`}
                       target="_blank"
-                      rel="noreferreral"
+                      rel="noreferrer"
                     >
                       {twitter_username}
                     </a>
