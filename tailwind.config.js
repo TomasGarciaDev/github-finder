@@ -4,9 +4,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [
-    require("tailwindcss"),
-    require("autopreFixer"),
-    require("daisyui"),
-  ],
+  plugins: [require("tailwindcss"), require("daisyui")],
 };
